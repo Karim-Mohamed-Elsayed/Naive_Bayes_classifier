@@ -25,7 +25,6 @@ def fit(X, y, categorical_features, var_smoothing=1e-6):
 
     # If a feature has very small variance (close to 0), dividing by will blow up the computation or produce infinite.
     #We add a tiny constant to the variance
-    # var_smoothing determines e  as a fraction of the largest variance in the dataset
     epsilon = var_smoothing 
     
     for c in classes:
@@ -65,7 +64,7 @@ def categorical_log_P(x, cls, categorical_features, cat_prob):
 
     for f in categorical_features:
         value = x[f]
-        prob = cat_prob[cls][f].get(value, 1e-9)  # unseen value
+        prob = cat_prob[cls][f].get(value, 1e-9)  
         log_p += np.log(prob)
     return log_p
 
@@ -98,6 +97,7 @@ def predict(X, classes, mean, var, cat_prob, class_priors,
 
 def score(y_true, y_pred):
     return np.mean(y_true == y_pred)
+
 def precision_f1(y_true, y_pred, positive_class=1):
     tp = 0
     fp = 0
